@@ -47,11 +47,11 @@ public class Partita {
 		this.finita = true;
 	}
 
-	
 	public Labirinto getLab() {
 		return this.lab;
 	}
 	public Giocatore getGiocatore() {
 		return this.gio;
 	}
+	
 }

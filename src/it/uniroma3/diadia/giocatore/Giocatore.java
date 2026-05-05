@@ -20,4 +20,10 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return this.borsa;
 	}
+	public boolean isVivo() {
+		if(this.getCfu()>0)
+			return true;
+		else
+			return false;
+	}
 }
