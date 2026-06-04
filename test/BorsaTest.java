@@ -1,5 +1,10 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,7 +77,43 @@ class BorsaTest {
 		aggiungiOggettiBorsa();
 		assertEquals(this.osso,this.borsa.removeAttrezzo("Osso"),"Dopo averlo rimosso ritorna l'oggetto cancellato che dovrà essere identico all'oggetto precedentemente passato al metodo add.");
 	}
-	
-	
+	@Test
+	public void Test_ordinamentoLista() {
+		aggiungiOggettiBorsa();
+		List<Attrezzo> ordinati = this.borsa.getContenutoOrdinatoPerPeso();
+		assertEquals(this.osso,ordinati.get(0),"Verifica se il primo attrezzo sia osso.");
+		assertEquals(this.spada,ordinati.get(1),"Verifica se il secondo attrezzo sia spada.");
+	}
+	@Test
+	public void Test_ordinamento_Vuota_Vero() {
+		List<Attrezzo> ordinati = this.borsa.getContenutoOrdinatoPerPeso();
+		assertTrue(ordinati.isEmpty(),"Se non sono stati aggiunti oggetti alla borsa allora la lista deve essere vuota.");
+	}
+	@Test
+	public void Test_ordinamentoSet_Per_Nome() {
+		aggiungiOggettiBorsa();
+		Set<Attrezzo> ordinati = this.borsa.getContenutoOrdinatoPerNome();
+		String stampa="[Osso (2kg), Spada (3kg)]";
+		assertEquals(stampa,ordinati.toString(),"La stampa deve essere prima osso e poi spada");
+		
+	}
+	@Test
+	public void Test_ordinamentoSet_Per_Nome_Vuota_Vero() {
+		Set<Attrezzo> ordinati = this.borsa.getContenutoOrdinatoPerNome();
+		assertTrue(ordinati.isEmpty(),"Se non sono stati aggiunti attrezzi alla borsa allora il set deve essere vuoto.");
+	}
+
+	@Test
+	public void Test_ordinamentoMappa_getContenutoRaggruppatoPerPeso_Vuota_Vero() {
+		Map<Integer, Set<Attrezzo>> ordinati=this.borsa.getContenutoRaggruppatoPerPeso();
+		assertTrue(ordinati.isEmpty(),"Se non sono stati aggiunti attrezzi alla borsa allora la mappa deve essere vuota.");
+	}
+	@Test
+	public void Test_ordinamentoMappa_getContenutoRaggruppatoPerPeso_Vero() {
+		aggiungiOggettiBorsa();
+		Map<Integer, Set<Attrezzo>> ordinati = this.borsa.getContenutoRaggruppatoPerPeso();
+		String stampa="{2=[Osso (2kg)], 3=[Spada (3kg)]}";
+		assertEquals(ordinati.toString(),stampa,"La stampa deve essere prima osso e poi spada");
+	}
 	
 }

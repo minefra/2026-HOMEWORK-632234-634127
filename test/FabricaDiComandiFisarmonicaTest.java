@@ -4,14 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 class FabricaDiComandiFisarmonicaTest {
-	public FabricaDiComandiFisarmonica fis;
+	public FabbricaDiComandiFisarmonica fis;
 	private Comando com;
 	@BeforeEach
 	public void setUp() {
-		fis=new FabricaDiComandiFisarmonica(); 
+		fis=new FabbricaDiComandiFisarmonica(); 
 	}
 	@Test
 	public void Test_ComandoNonValido_Vero() {
@@ -20,7 +20,7 @@ class FabricaDiComandiFisarmonicaTest {
 	}
 	@Test
 	public void Test_ComandoVai_Vero() {
-		com=fis.costruisciComando("vai");
+		com=fis.costruisciComando("vai nord");
 		assertEquals("Vai",com.getNome(),"Test riconoscimento del comando 'vai'.");
 	}
 	@Test

@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -18,17 +19,17 @@ class StanzaTest {
 	@Test
 	public void Test_impostaStanzaAdiacente_e_getStanzaAdiacente_Uguali_Vero() {
 		aggiungiStanzaAdicente();
-		assertEquals("Aula11",this.stanza.getStanzaAdiacente("nord").getNome(),"Devono essere uguali perché in direzione nord è presente l'aula11.");
+		assertEquals("Aula11",this.stanza.getStanzaAdiacente(Direzione.NORD).getNome(),"Devono essere uguali perché in direzione nord è presente l'aula11.");
 	}
 	
 	public void aggiungiStanzaAdicente() {
 		Stanza aula11=new Stanza("Aula11");
-		this.stanza.impostaStanzaAdiacente("nord",aula11);
+		this.stanza.impostaStanzaAdiacente(Direzione.NORD,aula11);
 	}
 	
 	@Test
 	public void Test_getDirezioneAdiacente_Inesistente_Null() {
-		assertNull(this.stanza.getStanzaAdiacente("nord"),"Se proviamo a fare una get su una stanza in una direzione che non esiste deve restituire null.");
+		assertNull(this.stanza.getStanzaAdiacente(Direzione.NORD),"Se proviamo a fare una get su una stanza in una direzione che non esiste deve restituire null.");
 	}
 	
 
@@ -37,8 +38,8 @@ class StanzaTest {
 	public void Test_impostaStanzaAdiacente_Direzioni_Esaurite_Null() {
 		creazioneStanze();
 		Stanza s5=new Stanza("D");
-		this.stanza.impostaStanzaAdiacente("nord-est", s5);
-		assertNull(this.stanza.getStanzaAdiacente("nord-est"),"La seguente stanza non dovrebbe essere stata aggiunta alle direzioni visto che hanno precedentemente raggiunto il loro massimo di istanze.");
+		this.stanza.impostaStanzaAdiacente(Direzione.NORD_EST, s5);
+		assertNull(this.stanza.getStanzaAdiacente(Direzione.NORD_EST),"La seguente stanza non dovrebbe essere stata aggiunta alle direzioni visto che hanno precedentemente raggiunto il loro massimo di istanze.");
 	}
 	
 	public void creazioneStanze() {
@@ -47,10 +48,10 @@ class StanzaTest {
 		Stanza s3=new Stanza("C");
 		Stanza s4=new Stanza("D");
 		
-		this.stanza.impostaStanzaAdiacente("nord", s1);
-		this.stanza.impostaStanzaAdiacente("est", s2);
-		this.stanza.impostaStanzaAdiacente("ovest", s3);
-		this.stanza.impostaStanzaAdiacente("sud", s4);
+		this.stanza.impostaStanzaAdiacente(Direzione.NORD, s1);
+		this.stanza.impostaStanzaAdiacente(Direzione.EST, s2);
+		this.stanza.impostaStanzaAdiacente(Direzione.OVEST, s3);
+		this.stanza.impostaStanzaAdiacente(Direzione.SUD, s4);
 	}
 	
 	@Test

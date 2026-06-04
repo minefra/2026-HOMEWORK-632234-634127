@@ -3,14 +3,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.ambienti.StanzaBloccata;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaBloccataTest {
 	private StanzaBloccata stanzaBloccata;
+	private Stanza stanzaDaAccedere;
 	@BeforeEach
 	public void setUp(){
-		this.stanzaBloccata=new StanzaBloccata("sala","nord");
+		this.stanzaBloccata=new StanzaBloccata("sala",Direzione.NORD);
+		this.stanzaDaAccedere=new Stanza("Atrio");
+		this.stanzaBloccata.impostaStanzaAdiacente(Direzione.NORD, stanzaDaAccedere);
 	}
 
 	@Test
@@ -25,22 +30,22 @@ class StanzaBloccataTest {
 	}
 	@Test
 	public void Test_GetDirezioneBloccata_Vero() {
-		assertEquals("nord",this.stanzaBloccata.getDirezioneBloccata(),"Deve restituire la direzione bloccata,cioè la stessa passata al metodo costruttore.");
+		assertEquals(Direzione.NORD,this.stanzaBloccata.getDirezioneBloccata(),"Deve restituire la direzione bloccata,cioè la stessa passata al metodo costruttore.");
 	}
 	@Test
 	public void Test_SetDirezioneBloccata_Vero() {
-		this.stanzaBloccata.setDirezioneBloccata("sud");
-		assertEquals("sud",this.stanzaBloccata.getDirezioneBloccata(),"Dopo il set la direzione bloccata cambia.");
+		this.stanzaBloccata.setDirezioneBloccata(Direzione.SUD);
+		assertEquals(Direzione.SUD,this.stanzaBloccata.getDirezioneBloccata(),"Dopo il set la direzione bloccata cambia.");
 	}
 	@Test
 	public void Test_getStanzaAdiacente_Senza_AttrezzoSpeciale_Vero() {
-		assertTrue(this.stanzaBloccata.equals(stanzaBloccata.getStanzaAdiacente("nord")),"Senza l'attrezzo speciale se proviamo ad andare nella direzione bloccata rimaniamo nella stanza attuale.");
+		assertTrue(this.stanzaBloccata.equals(stanzaBloccata.getStanzaAdiacente(Direzione.NORD)),"Senza l'attrezzo speciale se proviamo ad andare nella direzione bloccata rimaniamo nella stanza attuale.");
 	}
 	@Test
 	public void Test_getStanzaAdiacente_Con_AttrezzoSpeciale_Falso() {
 		Attrezzo chiave=new Attrezzo("chiave",2);
 		this.stanzaBloccata.addAttrezzo(chiave);
-		assertFalse(this.stanzaBloccata.equals(stanzaBloccata.getStanzaAdiacente("nord")),"Con l'attrezzo speciale se proviamo ad andare nella stanza bloccata, quest'ultima sarà accessibile.");
+		assertEquals(this.stanzaDaAccedere,stanzaBloccata.getStanzaAdiacente(Direzione.NORD));
 	}
 
 
