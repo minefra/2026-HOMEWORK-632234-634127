@@ -1,38 +1,39 @@
 package it.uniroma3.diadia;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class IOSimulator implements IO {
 
-    private String[] righeDaLeggere;
+    private List<String> righeDaLeggere;
     private int indiceRigheDaLeggere;
 
 
-    private String[] messaggiProdotti;
+
+    private List<String> messaggiProdotti;
     private int indiceMessaggiProdotti;
-    public IOSimulator(String []comandi) {
+    public IOSimulator(List<String> comandi) {
     	this.righeDaLeggere=comandi;
     	this.indiceRigheDaLeggere=0;
-    	
-    	this.messaggiProdotti = new String[4096];
+    	this.messaggiProdotti = new ArrayList<>();
     	this.indiceMessaggiProdotti=0;
     }
 	@Override
 	public void mostraMessaggio(String msg) {
-		if(this.indiceMessaggiProdotti<this.messaggiProdotti.length) {
-			this.messaggiProdotti[this.indiceMessaggiProdotti]=msg;
-			this.indiceMessaggiProdotti++;
-		}
+		this.messaggiProdotti.add(msg);
 	}
 
 	@Override
 	public String leggiRiga() {	
-		if(this.indiceRigheDaLeggere<this.righeDaLeggere.length) {
-			String riga=this.righeDaLeggere[this.indiceRigheDaLeggere];
-			this.indiceRigheDaLeggere++;
-			return riga;
-		}
-		return null;
+		String riga=this.righeDaLeggere.get(this.indiceRigheDaLeggere);
+		this.indiceRigheDaLeggere++;
+		return riga;
+		
 	}
-	public String[] getMessaggiProdotti() {
+	
+	public List<String> getMessaggiProdotti() {
         return this.messaggiProdotti;
     }
 
@@ -42,7 +43,7 @@ public class IOSimulator implements IO {
 
     public String getMessaggio(int indice) {
         if (indice >= 0 && indice < this.indiceMessaggiProdotti) {
-            return this.messaggiProdotti[indice];
+            return this.messaggiProdotti.get(indice);
         }
         return null;
     }

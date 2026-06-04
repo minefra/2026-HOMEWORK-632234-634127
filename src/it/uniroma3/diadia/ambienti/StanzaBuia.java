@@ -1,14 +1,15 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.Costanti;
+
 public class StanzaBuia extends Stanza {
-	private static final String ATTREZZOSPECIALE="lanterna";
 	private String attrezzoSpeciale;
 	public StanzaBuia(String nome,String attrezzoSpeciale) {
 		super(nome);
 		this.attrezzoSpeciale=attrezzoSpeciale;
 	}
 	public StanzaBuia(String nome) {
-		this(nome,ATTREZZOSPECIALE);
+		this(nome,Costanti.getAttrezzoSpecialeStanzaBuia());
 	}
 	
 	@Override

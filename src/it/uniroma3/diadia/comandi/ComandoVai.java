@@ -3,10 +3,11 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 
-public class ComandoVai implements Comando  {
-	private String direzione;
+public class ComandoVai extends AbstarctComando{
+	private Direzione direzione;
 	@Override
 	public void esegui(Partita partita,IO io) {
 		Stanza stanzaCorrente=partita.getLab().getStanzaCorrente();
@@ -27,13 +28,13 @@ public class ComandoVai implements Comando  {
 	}
 	@Override
 	public void setParametro(String parametro) {
-		this.setDirezione(parametro);
+		this.setDirezione(Direzione.valueOf(parametro.toUpperCase()));
 	}
 	
-	public String getDirezione() {
+	public Direzione getDirezione() {
 		return direzione;
 	}
-	public void setDirezione(String direzione) {
+	public void setDirezione(Direzione direzione) {
 		this.direzione = direzione;
 	}
 	@Override

@@ -7,7 +7,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
-public class ComandoPrendi implements Comando  {
+public class ComandoPrendi extends AbstarctComando {
 	public String nomeAttrezzo;
 	@Override
 	public void esegui(Partita partita, IO io) {

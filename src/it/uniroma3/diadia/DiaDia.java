@@ -1,9 +1,18 @@
 package it.uniroma3.diadia;
 import it.uniroma3.diadia.giocatore.Borsa;
+
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabricaDiComandi;
-import it.uniroma3.diadia.comandi.FabricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 /**
@@ -40,6 +49,10 @@ public class DiaDia {
 		this.io = io;
 		this.partita = new Partita();
 	}
+	public DiaDia(Labirinto lab,IO io) {
+		this.io = io;
+		this.partita = new Partita(lab);
+	}
 
 	public void gioca() {
 		String istruzione;
@@ -65,7 +78,7 @@ public class DiaDia {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
-		FabricaDiComandi factory=new FabricaDiComandiFisarmonica();
+		FabbricaDiComandi factory=new FabbricaDiComandiRiflessiva();
 		comandoDaEseguire=factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(partita,this.io);
 		if(this.partita.vinta())
@@ -77,10 +90,19 @@ public class DiaDia {
 	}   
 
 	public static void main(String[] argc) {
-		IO io = new IOConsole();
-	    DiaDia gioco = new DiaDia(io);
-	    gioco.gioca();
-			
+		try(Scanner scannerDiLinee=new Scanner(System.in)){
+			IO io = new IOConsole(scannerDiLinee);
+			DiaDia gioco=new DiaDia(new Labirinto("labirinto.txt"),io);
+		    gioco.gioca();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (FormatoFileNonValidoException e) {
+	
+			e.printStackTrace();
+		}
+		
+		
+
 	}
 	
 }

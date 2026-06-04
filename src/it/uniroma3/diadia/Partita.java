@@ -13,14 +13,19 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Partita {
 
 
-	private Labirinto lab=new Labirinto(null,null);
+	private Labirinto lab;
 	private boolean finita;
 	private Giocatore gio=new Giocatore();
 	
 	
 	public Partita(){
+		this.lab=new Labirinto(null,null);
 		lab.creaStanze();
 		this.finita = false;
+	}
+	public Partita(Labirinto lab) {
+		this.finita = false;
+		this.lab=lab;
 	}
 	
 	/**
@@ -46,7 +51,9 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
-
+	public void setLabirinto(Labirinto lab) {
+		this.lab=lab;
+	}
 	public Labirinto getLab() {
 		return this.lab;
 	}
